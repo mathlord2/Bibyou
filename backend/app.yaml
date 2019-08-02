@@ -3,6 +3,9 @@ api_version: 1
 threadsafe: true
 service: backend
 
+builtins:
+- remote_api: on
+
 handlers:
 - url: /.*
   script: main.app
@@ -10,3 +13,7 @@ handlers:
 env_variables:
   # Replace with your Firebase project ID.
   FIREBASE_PROJECT_ID: 'bibyou'
+
+libraries:
+- name: ssl
+  version: latest
