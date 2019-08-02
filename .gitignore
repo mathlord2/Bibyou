@@ -1,0 +1,4 @@
+.vscode
+typings
+backend/lib
+env

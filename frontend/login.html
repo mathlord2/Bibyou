@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html style="height: 100%; width: 100%;">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login</title>  
+        <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase.js"></script>
+        <script src="https://cdn.firebase.com/libs/firebaseui/4.1.0/firebaseui.js"></script>
+        <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/4.1.0/firebaseui.css" />
+        <link rel='stylesheet' type='text/css' href="css/style.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="js/firebase.js"></script>
+        <script src="js/login.js"></script>
+
+    </head>
+    <style>
+    .auth {
+        position: absolute;
+        top: 30%;
+        right: 50%;
+        transform: translateY(-50%);
+        transform: translatex(50%);
+    }       
+    </style>
+    <body>
+        <h1 align="center" style="padding-top: 7%">Choose a Login Option:</h1>
+        <div id="firebaseui-auth-container" class="auth"></div>
+        <div id="loader">Loading...</div>
+    </body>
+</html>

@@ -1,0 +1,452 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
+
+$overlay-color: rgb(227, 202, 255);
+
+//Basic structure
+* {
+    padding: 0;
+    margin: 0;
+    transition: 0.2s;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+button {
+    background: none;
+    border: none;
+}
+
+body {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+    background-color: rgb(241, 234, 250);
+}
+
+p {
+    margin-bottom: 1.25em;
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: 400;
+    color: black;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 36px;
+}
+
+h2 {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 18px;
+}
+
+h4 {
+    font-size: 1.563em;
+}
+
+h5 {
+    font-size: 1.25em;
+}
+
+i {
+    color: rgb(202, 155, 255);
+}
+
+a, button {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.navbar {
+    ul {
+        background-color: black;
+        overflow: hidden;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    li {
+        float: left;
+        margin-left: 20px;
+    }
+
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        font-size: 20px;
+    }
+
+    li a:hover {
+        background-color: white;
+        color: black;
+    }
+
+    #logo:hover {
+        background-color: black;
+    }
+}
+
+.header {
+    width: 100%;
+    height: 25%;
+    padding: 7% 0%;
+    line-height: 1.7;
+    text-align: center;
+    background: linear-gradient(90deg, #690CB0 5%, #6F18B3 40%, rgba(255, 255, 255, 0) 90%, #9A6EBC 110%), #7C36B3;
+
+    h1 {
+        color: white;
+    }
+}
+
+.title {
+    margin-top: 20px;
+    width: 20%;
+
+    h2 {
+        font-weight: bold;
+        border: 0;
+        outline: 0;
+        border-bottom: 2px solid rgb(94, 94, 94);
+    }
+}
+
+.article {
+    padding: 5% 15px;
+    line-height: 2;
+    width: 40%;
+}
+
+.content {
+    margin-left: 15%;
+    display: flex;
+}
+
+//Documents
+.document {
+    padding: 13px;
+    line-height: 1.7;
+    float: left;
+    width: 47.5%;
+    margin-top: 10px;
+    height: 100px;
+    background-color: rgb(213, 179, 253);
+    border-radius: 10px;
+    text-align: center;
+    color: black;
+}
+
+.document:nth-child(2n) {
+    float: right;
+}
+
+.document:hover {
+    background-color: rgb(167, 91, 255);
+
+    h2, p {
+        color: white;
+    }
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 1;
+    transition: opacity 500ms;
+    display: none;
+    z-index: 2;
+    overflow: auto;
+
+    #addDocument {
+        position: absolute;
+        width: 70%;
+        height: 30%;
+        margin-left: 15%;
+        margin-top: 10%;
+        background-color: $overlay-color;
+        padding: 40px;
+
+        a {
+            float: right;
+            margin-right: 10px;
+        }
+
+        a h1:hover {
+            color: white;
+        }
+
+        h2 {
+            margin-top: 30px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            margin-top: 40px;
+        }
+
+        button:hover {
+            background-color: $overlay-color;
+            color: white;
+        }
+
+    }
+
+    #editSourceSettings {
+        position: absolute;
+        width: 70%;
+        height: 30%;
+        margin-left: 15%;
+        margin-top: 10%;
+        background-color: $overlay-color;
+        padding: 40px;
+        display: none;
+
+        a {
+            float: right;
+            margin-right: 10px;
+        }
+
+        a h1:hover {
+            color: white;
+        }
+
+        button {
+            padding: 10px;
+            background-color: white;
+            border: none;
+            border-radius: 20px;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: $overlay-color;
+        }
+
+        #menus {
+            display: flex;
+
+            .dropdown {
+                overflow: hidden;
+                margin: 20px;
+
+                .dropdownContent {
+                    display: none;
+
+                    a {
+                        float: none;
+                        background-color: white;
+                        display: block;
+                        padding: 10px;
+                    }
+
+                    a:hover {
+                        background-color: black;
+                        color: white;
+                    }
+                }
+            }
+
+            .dropdown:hover .dropdownContent {
+                display: block;
+            }
+
+            h2 {
+                background-color: white;
+                padding: 10px;
+            }
+
+            h2:hover {
+                background-color: black;
+                color: white;
+            }
+        }
+    }
+
+    #addSource {
+        position: absolute;
+        width: 70%;
+        margin-left: 15%;
+        margin-top: 5%;
+        background-color: $overlay-color;
+        padding: 40px;
+        display: none;
+
+        a {
+            float: right;
+            margin-right: 10px;
+        }
+
+        a h1:hover {
+            color: white;
+        }
+
+        button {
+            padding: 10px;
+            background-color: white;
+            border: none;
+            border-radius: 20px;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: $overlay-color;
+        }
+
+        .info {
+            margin: 10px 0px;
+
+            input {
+                padding: 10px;
+                border: none;
+                border-radius: 10px;
+                margin-right: 10px;
+                margin-top: 10px;
+            }
+
+            #datePublished, #dateAccessed {
+                margin: 30px 0px;
+
+                input {
+                    width: 70px;
+                }
+            }
+        }
+
+        #authors {
+            margin-top: 30px;
+
+            button {
+                padding: 5px 7px;
+                background-color: white;
+                border: none;
+                border-radius: 40px;
+            }
+
+            button:hover {
+                background-color: $overlay-color;
+            }
+        }
+    }
+}
+
+#docEditing {
+    margin-top: 30px;
+    padding: 20px;
+
+    #sources {
+        border: 5px solid black;
+        padding: 30px;
+        border-radius: 20px;
+        line-height: 1.7;
+        margin-top: 40px;
+        overflow: hidden;
+
+        i {
+            color: black;
+        }
+    }
+
+    button {
+        margin-top: 40px;
+        padding: 10px;
+        border: 5px solid black;
+        border-radius: 10px;
+        margin-bottom: 40px;
+    }
+
+    button:hover {
+        background-color: black;
+        h1 {
+            color: white;
+        }
+    }
+
+    textarea {
+        padding: 10px;
+        border: none;
+        border-radius: 20px;
+        margin-top: 40px;
+    }
+
+    #buttons {
+        display: flex;
+    }
+}
+
+#doc {
+    display: none;
+}
+
+img {
+    width: 70%;
+    margin-left: 15%;
+    margin-bottom: 20px;
+}
+
+.get-started {
+    text-align: center;
+    width: 100%;
+    margin-top: 20px;
+    padding: 120px 0px;
+    line-height: 6;
+    background-color: $overlay-color;
+
+    button {
+        padding: 15px;
+        background-color: black;
+        
+        h1 {
+            color: white;
+        }
+    }
+
+    button:hover {
+        background-color: white;
+
+        h1 {
+            color: black;
+        }
+    }
+}
+
+footer {
+    background-color: rgb(83, 7, 119);
+    padding: 40px 0px;
+    text-align: center;
+    line-height: 2;
+    
+    h2 {
+        color: white;
+    }
+}

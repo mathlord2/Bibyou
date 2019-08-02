@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel='stylesheet' type='text/css' href="css/style.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/firebase.js"></script>
+    
+    
+    <title>BibU</title>
+
+</head>
+
+<body>
+    <div id="home">
+        <div class='navbar'>
+            <ul>
+                <li><a id="openAddDoc"><span>&#43;</span> Add Document</a></li>
+                <li style='float: right'><a id="signOut">Sign Out</a></li>
+            </ul>
+        </div>
+
+        <div class="header">
+            <h1>Welcome Eric.</h1>
+        </div>
+        <br>
+        
+        <div id="documents">
+            <a class="document" sources="Wikipedia ;+ Britannica ;+ Macbeth" id=0>
+                <h2>Shakespeare Essay: Why Macbeth is Conceited</h2>
+                <p>Date Created: April 21, 2019</p>
+            </a>
+            <a class="document" sources="Wikipedia ;+ Britannica" id=1>
+                <h2>History Summative Essay</h2>
+                <p>Date Created: May 24, 2019</p>
+            </a>
+            <a class="document" sources="Wikipedia ;+ Britannica ;+ Macbeth ##HelloThere%% Hi ;+ LOTF" id=2>
+                <h2>Lord of the Flies Essay</h2>
+                <p>Date Created: June 10, 2019</p>
+            </a>
+        </div>
+
+        <div class="overlay">
+            <div id="addDocument">
+                <a id="closeAddDoc"><h1>&times;</h1></a>
+                <h1 align="center">Add Document</h1>
+                <h2>Title:</h2>
+                <input placeholder="Title" id="docTitle">
+                <br>
+                <button id="addDoc"><h3>Add Document</h3></button>
+            </div>
+        </div>
+    </div>
+
+    <div id="doc">
+        <div class='navbar'>
+            <ul>
+                <li><a id="backButton">Back</a></li>
+                <li><a id="openEditSourceSettings"><span>&#43;</span> Add Source</a></li>
+                <li><a href="https://owl.purdue.edu/owl/purdue_owl.html" target="_blank">Learn How to Cite</a></li>
+                <li style='float: right'><a href='home.html'>Sign Out</a></li>
+            </ul>
+        </div>
+        
+        <div id="docEditing">
+            <h1 align="center"></h1>
+            <ul id="sources">
+            </ul>
+            <button id="editSources">
+                <h1>&#9998;</h1>
+            </button>
+        </div>
+        
+        <div class="overlay">
+            <div id="editSourceSettings">
+                <a id="closeEditSourceSettings">
+                    <h1>&times;</h1>
+                </a>
+                <h1 align="center">Source Settings</h1>
+                <div id="menus">
+                    <div class="dropdown">
+                        <h2 id="format">Format</h2>
+                        <div class="dropdownContent">
+                            <a>MLA</a>
+                            <a>APA</a>
+                            <a>Chicago 17th</a>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <h2 id="type">Type of Source</h2>
+                        <div class="dropdownContent">
+                            <a>Webpage</a>
+                            <a>Book</a>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <h2 id="note">Footnote or Bibliographical Entry</h2>
+                        <div class="dropdownContent">
+                            <a>Footnote</a>
+                            <a>Bibliographical Entry</a>
+                        </div>
+                    </div>
+                </div>
+                <button id="openAddSource">
+                    <h3>Create Source</h3>
+                </button>
+            </div>
+        
+            <div id="addSource">
+                <a id="closeAddSource">
+                    <h1>&times;</h1>
+                </a>
+                <h1 align="center">Add Source</h1>
+                <div class="info">
+                    <input placeholder="Article Title" id="articleTitle">
+                    <input placeholder="Website Title" id="webTitle">
+                    <input placeholder="Publisher" id="publisher">
+                    <input placeholder="URL" id="URL">
+                    <div id="datePublished">
+                        <h2>Date Published:</h2>
+                        <input placeholder="Month">
+                        <input placeholder="Day">
+                        <input placeholder="Year">
+                    </div>
+                    <div id="dateAccessed">
+                        <h2>Date Accessed:</h2>
+                        <input placeholder="Month">
+                        <input placeholder="Day">
+                        <input placeholder="Year">
+                    </div>
+                </div>
+                <div class="info">
+                    <div id="authors">
+                        <h2>Authors:</h2>
+                        <input placeholder="First Name" class="firstName">
+                        <input placeholder="Middle Name" class="middleName">
+                        <input placeholder="Last Name" class="lastName">
+                        <button id="add-author">&plus;</button>
+                    </div>
+                </div>
+                <button id="add-source">
+                    <h3>Add Source</h3>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
