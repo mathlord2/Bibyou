@@ -991,7 +991,8 @@ $(function() {
                     addSource();
                     $.ajax(backendHostUrl + '/addSource', {
                         headers: {
-                            'Authorization': 'Bearer ' + userIdToken
+                            'Authorization': 'Bearer ' + userIdToken,
+                            'Access-Control-Allow-Origin': '*'
                         },
                         method: 'POST',
                         data: JSON.stringify({ 'id': doc, 'source': returnSource() }),
@@ -1007,7 +1008,8 @@ $(function() {
                     addSource();
                     $.ajax(backendHostUrl + '/addSource', {
                         headers: {
-                            'Authorization': 'Bearer ' + userIdToken
+                            'Authorization': 'Bearer ' + userIdToken,
+                            'Access-Control-Allow-Origin': '*'
                         },
                         method: 'POST',
                         data: JSON.stringify({ 'id': doc, 'source': returnSource() }),
@@ -1025,7 +1027,8 @@ $(function() {
                     addSource();
                     $.ajax(backendHostUrl + '/addSource', {
                         headers: {
-                            'Authorization': 'Bearer ' + userIdToken
+                            'Authorization': 'Bearer ' + userIdToken,
+                            'Access-Control-Allow-Origin': '*'
                         },
                         method: 'POST',
                         data: JSON.stringify({ 'id': doc, 'source': returnSource() }),
@@ -1040,7 +1043,8 @@ $(function() {
                 if (articleTitle != '' && dateP[2].value != '') {
                     $.ajax(backendHostUrl + '/addSource', {
                         headers: {
-                            'Authorization': 'Bearer ' + userIdToken
+                            'Authorization': 'Bearer ' + userIdToken,
+                            'Access-Control-Allow-Origin': '*'
                         },
                         method: 'POST',
                         data: JSON.stringify({ 'id': doc, 'source': returnSource() }),

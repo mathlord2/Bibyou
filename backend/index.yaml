@@ -10,12 +10,12 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
-- kind: Note
+- kind: Account
   ancestor: yes
   properties:
   - name: created
 
-- kind: Note
+- kind: Account
   ancestor: yes
   properties:
   - name: created

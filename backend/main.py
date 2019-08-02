@@ -62,7 +62,7 @@ def add_doc():
     data = request.get_json()
 
     doc = Doc(
-        parent = ndb.key(Doc, claims['sub']),
+        parent = ndb.Key(Doc, claims['sub']),
         document = data('document'),
         date = data('date'),
         sources = data('sources'),
@@ -88,9 +88,8 @@ def save_source():
     for i in range(len(args)-1):
         args[i] = args[i].strip("'")
 
-    doc = args.get()
-    doc.sources = data('sources')
-    doc.put()
+    ndb.Key(*args).sources = data('sources')
+    ndb.Key(*args).put()
     
     return 'OK', 200
 
@@ -111,9 +110,8 @@ def add_source():
     for i in range(len(args)-1):
         args[i] = args[i].strip("'")
 
-    doc = args.get()
-    doc.sources.append(data('source'))
-    doc.put()
+    ndb.Key(*args).sources.append(data('source'))
+    ndb.Key(*args).put()
     
     return 'OK', 200
 
