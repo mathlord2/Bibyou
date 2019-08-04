@@ -884,7 +884,7 @@ $(function() {
             $('#documents').empty();
 
             data.forEach(function (doc, docNumber) {
-                $('#documents').append(
+                $('#documents').prepend(
                     $('<a/>', {'class': 'document', 'id': 'doc'+docNumber.toString(), 'sources': doc['sources'].join(' ;+ '), 'docId': doc['id']}).append(
                         $('<h2/>').text(doc['document']),
                         $('<p/>').text('Date Created: ' + doc['date'])
