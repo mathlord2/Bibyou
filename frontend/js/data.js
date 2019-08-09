@@ -29,54 +29,88 @@ function checkIfDocExists() {
 
 function editSources() {
     //Deleting static text
-    var sourcing = document.getElementById('sources');
-    var sources = sourcing.getElementsByTagName('li');
-    var docEditing = document.getElementById('docEditing');
-    docEditing.removeChild(sourcing);
+    if (document.getElementById('sources').getElementsByTagName('li').length != 0) {
+        var sourcing = document.getElementById('sources');
+        var sources = sourcing.getElementsByTagName('li');
+        var docEditing = document.getElementById('docEditing');
+        docEditing.removeChild(sourcing);
 
-    //Converting sources into textarea
-    var textarea = document.createElement('TEXTAREA');
-    textarea.setAttribute('rows', 8);
-    textarea.setAttribute('cols', 250);
-    textarea.setAttribute('id', 'sourceText')
+        //Converting sources into textarea
+        var textarea = document.createElement('TEXTAREA');
+        textarea.setAttribute('rows', 8);
+        textarea.setAttribute('cols', 250);
+        textarea.setAttribute('id', 'sourceText')
 
-    var text = []
-    for (var i = 0; i < sources.length; i++) {
-        var source = sources[i].innerHTML;
-        if (source.includes('<i>')) {
-            source = source.replace('<i>', '##');
-            source = source.replace('</i>', '%%');
+        var text = []
+        for (var i = 0; i < sources.length; i++) {
+            var source = sources[i].innerHTML;
+            if (source.includes('<i>')) {
+                source = source.replace('<i>', '##');
+                source = source.replace('</i>', '%%');
+            }
+            text.push(source);
         }
-        text.push(source);
+
+        text = text.join('\n');
+        text = document.createTextNode(text);
+        textarea.appendChild(text);
+
+        var center = document.createElement('CENTER');
+        center.appendChild(textarea);
+        docEditing.appendChild(center);
+
+        //Deleting edit button and adding save button
+        var button = document.getElementById('editSources');
+        docEditing.removeChild(button);
+
+        var newButton = document.createElement('BUTTON');
+        var h1 = document.createElement('H1');
+
+        newButton.setAttribute('id', 'save');
+
+        var saveText = document.createTextNode('Save');
+        h1.appendChild(saveText);
+        newButton.appendChild(h1);
+        docEditing.appendChild(newButton);
+
+        var p = document.createElement('P');
+        var note = document.createTextNode('*The text between the ## and %% symbols will be converted into italics.')
+        p.appendChild(note);
+        docEditing.appendChild(p);
+    } else {
+        var sourcing = document.getElementById('sources');
+        var docEditing = document.getElementById('docEditing');
+        docEditing.removeChild(sourcing);
+
+        //Converting sources into textarea
+        var textarea = document.createElement('TEXTAREA');
+        textarea.setAttribute('rows', 8);
+        textarea.setAttribute('cols', 250);
+        textarea.setAttribute('id', 'sourceText')
+
+        var center = document.createElement('CENTER');
+        center.appendChild(textarea);
+        docEditing.appendChild(center);
+
+        //Deleting edit button and adding save button
+        var button = document.getElementById('editSources');
+        docEditing.removeChild(button);
+
+        var newButton = document.createElement('BUTTON');
+        var h1 = document.createElement('H1');
+
+        newButton.setAttribute('id', 'save');
+
+        var saveText = document.createTextNode('Save');
+        h1.appendChild(saveText);
+        newButton.appendChild(h1);
+        docEditing.appendChild(newButton);
+
+        var p = document.createElement('P');
+        var note = document.createTextNode('*The text between the ## and %% symbols will be converted into italics.')
+        p.appendChild(note);
+        docEditing.appendChild(p);
     }
-
-    text = text.join('\n');
-    text = document.createTextNode(text);
-    textarea.appendChild(text);
-
-    var center = document.createElement('CENTER');
-    center.appendChild(textarea);
-    docEditing.appendChild(center);
-
-    //Deleting edit button and adding save button
-    var button = document.getElementById('editSources');
-    docEditing.removeChild(button);
-
-    var newButton = document.createElement('BUTTON');
-    var h1 = document.createElement('H1');
-
-    newButton.setAttribute('id', 'save');
-    newButton.setAttribute('onclick', 'saveSources()');
-
-    var saveText = document.createTextNode('Save');
-    h1.appendChild(saveText);
-    newButton.appendChild(h1);
-    docEditing.appendChild(newButton);
-
-    var p = document.createElement('P');
-    var note = document.createTextNode('*The text between the ## and %% symbols will be converted into italics.')
-    p.appendChild(note);
-    docEditing.appendChild(p);
 }
 
 function returnSources() {
@@ -100,11 +134,11 @@ function saveSources() {
                 var part2 = document.createTextNode(sourceArray[i].substring(lastSign + 2));
 
                 var li = document.createElement('LI');
-                var i = document.createElement('I');
+                var itag = document.createElement('I');
 
-                i.appendChild(italics);
+                itag.appendChild(italics);
                 li.appendChild(part1);
-                li.appendChild(i);
+                li.appendChild(itag);
                 li.appendChild(part2);
                 ul.appendChild(li);
             } else {
@@ -113,7 +147,6 @@ function saveSources() {
                 li.appendChild(source);
                 ul.appendChild(li);
             }
-
         }
     }
 
@@ -137,7 +170,6 @@ function saveSources() {
     button.appendChild(h1);
 
     button.setAttribute('id', 'editSources');
-    button.setAttribute('onclick', 'editSources()');
 
     docEditing.appendChild(ul);
     docEditing.appendChild(button);
@@ -786,15 +818,17 @@ function returnSource() {
 function addSource() {
     var source = returnSource();
     if (source.includes('##') && source.includes('%%')) {
-        var firstSign = sources[i].split('##');
+        var firstSign = source.split('##');
         var lastSign = firstSign[1].split('%%');
         var part1 = firstSign[0];
         var italics = lastSign[0];
         var part2 = lastSign[1];
         $('#sources').append('<li>' + part1 + '<i>' + italics + '</i>' + part2 + '</li>');
     } else {
-        $('#sources').append('<li>' + sources[i] + '</li>');
+        $('#sources').append('<li>' + source + '</li>');
     }
+
+    closeAddSource();
 }
 
 function backButton() {
@@ -839,6 +873,10 @@ window.onload = function () {
     $('#signOut').on('click', logOut);
 }
 
+$(document).on('click', '#editSources', function() {
+    editSources();
+});
+
 $(document).on('click', '.deleteBtn', function () {
     var $row = $(this).parent('.row');
     var $br = $row.prev();
@@ -850,32 +888,33 @@ $(function() {
     var backendHostUrl = 'https://backend-dot-bibyou.appspot.com';
     var userIdToken = null;
 
-    firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
-            var name = user.displayName;
+    function configureFirebaseLogin() {
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                var name = user.displayName;
 
-            /* If the provider gives a display name, use the name for the
-            personal welcome message. Otherwise, use the user's email. */
-            var welcomeName = name ? name : user.email;
+                /* If the provider gives a display name, use the name for the
+                personal welcome message. Otherwise, use the user's email. */
+                var welcomeName = name ? name : user.email;
 
-            user.getToken().then(function (idToken) {
-                userIdToken = idToken;
+                user.getIdToken().then(function (idToken) {
+                    userIdToken = idToken;
 
-                /* Now that the user is authenicated, fetch the notes. */
-                fetchSources();
-                $('.header h1').html('Welcome ' + welcomeName + '.');
-            });
+                    /* Now that the user is authenicated, fetch the notes. */
+                    $('.header h1').html('Welcome ' + welcomeName + '.');
+                    fetchSources();
+                });
 
-        } else {
-            userIdToken = null;
-            window.location.replace('login.html');
-        }
-    });
+            } else {
+                userIdToken = null;
+                window.location.replace('login.html');
+            }
+        });
+    }
     
     function fetchSources() {
         $.ajax(backendHostUrl + '/documents', {
-            /* Set header for the XMLHttpRequest to get data from the web server
-            associated with userIdToken */
+            // Set header for the XMLHttpRequest to get data from the web server associated with userIdToken
             headers: {
                 'Authorization': 'Bearer ' + userIdToken,
                 'Access-Control-Allow-Origin': '*'
@@ -884,8 +923,8 @@ $(function() {
             $('#documents').empty();
 
             data.forEach(function (doc, docNumber) {
-                $('#documents').prepend(
-                    $('<a/>', {'class': 'document', 'id': 'doc'+docNumber.toString(), 'sources': doc['sources'].join(' ;+ '), 'docId': doc['id']}).append(
+                $('#documents').append(
+                    $('<a/>', {'class': 'document', 'id': 'doc'+docNumber.toString(), 'sources': doc['sources'].join(' ;+ '), 'docId': doc['docId']}).append(
                         $('<h2/>').text(doc['document']),
                         $('<p/>').text('Date Created: ' + doc['date'])
                     ));
@@ -895,7 +934,7 @@ $(function() {
 
     //Adding new document
     $('#addDoc').click(function (event) {
-        if ($('#docTitle').text() != '' && !checkIfDocExists()) {
+        if ($('#docTitle').val() != '' && !checkIfDocExists()) {
             event.preventDefault();
             closeAddDoc();
 
@@ -920,8 +959,8 @@ $(function() {
                 contentType: 'application/json'
             }).then(function() {
                 fetchSources();
-            })
-        } else if ($('#docTitle').text() == '') {
+            });
+        } else if ($('#docTitle').val() == '') {
             alert('Title not filled out.');
         } else {
             alert('Document already exists. Choose another one.');
@@ -955,19 +994,19 @@ $(function() {
     });
 
     //Save button
-    $('#save').click(function(event) {
-        event.preventDefault();
+    $(document).on('click', '#save', function() {
         var docId = $('#doc').attr('docId');
         var doc = $('#'+docId).attr('docId');
-
+        var returnedSources = returnSources();
         saveSources();
+
         $.ajax(backendHostUrl + '/saveSources', {
             headers: {
                 'Authorization': 'Bearer ' + userIdToken,
                 'Access-Control-Allow-Origin': '*'
             },
             method: 'POST',
-            data: JSON.stringify({ 'id': doc, 'sources': returnSources() }),
+            data: JSON.stringify({ 'id': doc, 'sources': returnedSources }),
             contentType: 'application/json'
         }).then(function() {
             fetchSources();
@@ -975,18 +1014,17 @@ $(function() {
     });
 
     //Adding in source created by code
-    $('#add-source').click(function(event) {
-        event.preventDefault();
-
+    $(document).on('click', '#add-source', function() {
         var docId = $('#doc').attr('docId');
         var doc = $('#' + docId).attr('docId');
 
         var articleTitle = document.getElementById('articleTitle').value;
         var dateP = document.getElementById('datePublished').getElementsByTagName('input');
         var dateA = document.getElementById('dateAccessed').getElementsByTagName('input');
+        var source = returnSource();
 
-        if ($('#format').text() == 'MLA' || $('#format').text() == 'Chicago 17th') {
-            if ($('#type').text() == 'Webpage') {
+        if ($('#format').html() == 'MLA' || $('#format').html() == 'Chicago 17th') {
+            if ($('#type').html() == 'Webpage') {
                 if (articleTitle != '' && document.getElementById('URL').value != '' && document.getElementById('webTitle').value != '' && ((dateP[0].value != '' && dateP[1].value != '' && dateP[2].value != '') || (dateA[0].value != '' && dateA[1].value != '' && dateA[2].value != ''))) {
                     addSource();
                     $.ajax(backendHostUrl + '/addSource', {
@@ -995,7 +1033,7 @@ $(function() {
                             'Access-Control-Allow-Origin': '*'
                         },
                         method: 'POST',
-                        data: JSON.stringify({ 'id': doc, 'source': returnSource() }),
+                        data: JSON.stringify({ 'id': doc, 'newSource': source }),
                         contentType: 'application/json'
                     }).then(function () {
                         fetchSources();
@@ -1012,7 +1050,7 @@ $(function() {
                             'Access-Control-Allow-Origin': '*'
                         },
                         method: 'POST',
-                        data: JSON.stringify({ 'id': doc, 'source': returnSource() }),
+                        data: JSON.stringify({ 'id': doc, 'newSource': source }),
                         contentType: 'application/json'
                     }).then(function () {
                         fetchSources();
@@ -1021,8 +1059,8 @@ $(function() {
                     alert('Missing important parameters');
                 }
             }
-        } else if ($('#format').text() == 'APA') {
-            if ($('#type').text() == 'Webpage') {
+        } else if ($('#format').html() == 'APA') {
+            if ($('#type').html() == 'Webpage') {
                 if (articleTitle != '' && document.getElementById('URL').value != '' && (dateP[2].value != '' || (dateA[0].value != '' && dateA[1].value != '' && dateA[2].value != ''))) {
                     addSource();
                     $.ajax(backendHostUrl + '/addSource', {
@@ -1031,7 +1069,7 @@ $(function() {
                             'Access-Control-Allow-Origin': '*'
                         },
                         method: 'POST',
-                        data: JSON.stringify({ 'id': doc, 'source': returnSource() }),
+                        data: JSON.stringify({ 'id': doc, 'newSource': source }),
                         contentType: 'application/json'
                     }).then(function () {
                         fetchSources();
@@ -1041,13 +1079,14 @@ $(function() {
                 }
             } else {
                 if (articleTitle != '' && dateP[2].value != '') {
+                    addSource();
                     $.ajax(backendHostUrl + '/addSource', {
                         headers: {
                             'Authorization': 'Bearer ' + userIdToken,
                             'Access-Control-Allow-Origin': '*'
                         },
                         method: 'POST',
-                        data: JSON.stringify({ 'id': doc, 'source': returnSource() }),
+                        data: JSON.stringify({ 'id': doc, 'newSource': source }),
                         contentType: 'application/json'
                     }).then(function () {
                         fetchSources();
@@ -1058,4 +1097,6 @@ $(function() {
             }
         }
     });
+
+    configureFirebaseLogin();
 });

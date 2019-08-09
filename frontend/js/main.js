@@ -206,8 +206,8 @@ function saveSources() {
 }
 
 function returnSources() {
-    var array = document.getElementById('sourceText').value.split('\n');
-    return array;
+    var $array = $('#sourceText').val.split('\n');
+    return $array;
 }
 
 function openEditSourceSettings() {

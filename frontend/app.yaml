@@ -7,8 +7,8 @@ handlers:
 
 # root
 - url: /
-  static_files: index.html
-  upload: index.html
+  static_files: home.html
+  upload: home.html
 
 - url: /(.+)
   static_files: \1

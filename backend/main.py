@@ -1,3 +1,4 @@
+import logging
 from flask import Flask, jsonify, request
 import flask_cors
 from google.appengine.ext import ndb
@@ -12,9 +13,6 @@ app = Flask(__name__)
 flask_cors.CORS(app)
 
 class Document(ndb.Model):
-    """NDB model class for a user's note.
-    Key is user id from decrypted token.
-    """
     docId = ndb.StringProperty()
     document = ndb.StringProperty()
     date = ndb.StringProperty()
@@ -29,44 +27,39 @@ def query_database(user_id):
     data = []
 
     for doc in docs:
-        data.append([
+        data.append({
             'docId': str(doc.key),
             'document': doc.document,
             'date': doc.date,
-            'sources': doc.sources,
-            'created': doc.created
-        ])
+            'sources': doc.sources
+        })
     
     return data
 
 @app.route('/documents', methods=['GET'])
 def get_docs():
     id_token = request.headers['Authorization'].split(' ').pop()
-    claims = google.oauth2.id_token.verify_firebase_token(
-        id_token, HTTP_REQUEST)
+    claims = google.oauth2.id_token.verify_firebase_token(id_token, HTTP_REQUEST)
     if not claims:
         return 'Unauthorized', 401
 
     documents = query_database(claims['sub'])
-
     return jsonify(documents)
 
 @app.route('/documents', methods=['POST', 'PUT'])
 def add_doc():
     id_token = request.headers['Authorization'].split(' ').pop()
-    claims = google.oauth2.id_token.verify_firebase_token(
-        id_token, HTTP_REQUEST)
+    claims = google.oauth2.id_token.verify_firebase_token(id_token, HTTP_REQUEST)
     if not claims:
         return 'Unauthorized', 401
     
     data = request.get_json()
 
-    doc = Doc(
-        parent = ndb.Key(Doc, claims['sub']),
-        document = data('document'),
-        date = data('date'),
-        sources = data('sources'),
-        created = data('created')
+    doc = Document(
+        parent = ndb.Key(Document, claims['sub']),
+        document = data['document'],
+        date = data['date'],
+        sources = data['sources']
     )
     doc.put()
     return 'OK', 200
@@ -88,8 +81,9 @@ def save_source():
     for i in range(len(args)-1):
         args[i] = args[i].strip("'")
 
-    ndb.Key(*args).sources = data('sources')
-    ndb.Key(*args).put()
+    doc = ndb.Key(*args).get()
+    doc.sources = data['sources']
+    doc.put()
     
     return 'OK', 200
 
@@ -110,8 +104,9 @@ def add_source():
     for i in range(len(args)-1):
         args[i] = args[i].strip("'")
 
-    ndb.Key(*args).sources.append(data('source'))
-    ndb.Key(*args).put()
+    doc = ndb.Key(*args).get()
+    doc.sources.append(data['newSource'])
+    doc.put()
     
     return 'OK', 200
 
