@@ -22,7 +22,6 @@ button {
 body {
   font-family: 'Rubik', sans-serif;
   font-weight: 400;
-  background-color: #f1eafa;
 }
 
 p {
@@ -333,7 +332,7 @@ a, button {
   padding: 10px;
   border: 5px solid black;
   border-radius: 10px;
-  margin-bottom: 40px;
+  margin-right: 15px;
 }
 #docEditing button:hover {
   background-color: black;
@@ -343,7 +342,7 @@ a, button {
 }
 #docEditing textarea {
   padding: 10px;
-  border: none;
+  border: 3px solid rgb(32, 0, 32);
   border-radius: 20px;
   margin-top: 40px;
 }

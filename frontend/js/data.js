@@ -60,8 +60,8 @@ function editSources() {
         docEditing.appendChild(center);
 
         //Deleting edit button and adding save button
-        var button = document.getElementById('editSources');
-        docEditing.removeChild(button);
+        var buttons = document.getElementById('buttons');
+        docEditing.removeChild(buttons);
 
         var newButton = document.createElement('BUTTON');
         var h1 = document.createElement('H1');
@@ -93,8 +93,8 @@ function editSources() {
         docEditing.appendChild(center);
 
         //Deleting edit button and adding save button
-        var button = document.getElementById('editSources');
-        docEditing.removeChild(button);
+        var buttons = document.getElementById('buttons');
+        docEditing.removeChild(buttons);
 
         var newButton = document.createElement('BUTTON');
         var h1 = document.createElement('H1');
@@ -161,18 +161,29 @@ function saveSources() {
     var p = docEditing.getElementsByTagName('p')[0];
     docEditing.removeChild(p);
 
-    //Adding in changed sources and edit button
-    var button = document.createElement('BUTTON');
-    var h1 = document.createElement('H1');
+    //Adding in changed sources and buttons
+    var div = document.createElement('DIV');
+    div.setAttribute('id', 'buttons')
 
+    var button1 = document.createElement('BUTTON');
+    var h1 = document.createElement('H1');
     var pencil = document.createTextNode('\u270E');
     h1.appendChild(pencil);
-    button.appendChild(h1);
+    button1.appendChild(h1);
 
-    button.setAttribute('id', 'editSources');
+    var button2 = document.createElement('BUTTON');
+    var h12 = document.createElement('H1');
+    var copy = document.createTextNode('Copy to Clipboard');
+    h12.appendChild(copy);
+    button2.appendChild(h12);
+
+    button1.setAttribute('id', 'editSources');
+    button2.setAttribute('id', 'copyClipboard');
 
     docEditing.appendChild(ul);
-    docEditing.appendChild(button);
+    div.appendChild(button1);
+    div.appendChild(button2);
+    docEditing.appendChild(div);
 }
 
 function openEditSourceSettings() {
@@ -836,6 +847,30 @@ function backButton() {
     document.getElementById('home').style.display = 'block';
 }
 
+function copyClipboard() {
+    var elm = document.getElementById("sources");
+    // for Internet Explorer
+
+    if (document.body.createTextRange) {
+        var range = document.body.createTextRange();
+        range.moveToElementText(elm);
+        range.select();
+        document.execCommand("Copy");
+        alert("Copied to clipboard.");
+    }
+    else if (window.getSelection) {
+        // other browsers
+
+        var selection = window.getSelection();
+        var range = document.createRange();
+        range.selectNodeContents(elm);
+        selection.removeAllRanges();
+        selection.addRange(range);
+        document.execCommand("Copy");
+        alert("Copied to clipboard.");
+    }
+}
+
 function logOut() {
     firebase.auth().signOut().then(function () {
         console.log("Sign out successful");
@@ -876,6 +911,10 @@ window.onload = function () {
 $(document).on('click', '#editSources', function() {
     editSources();
 });
+
+$(document).on('click', '#copyClipboard', function() {
+    copyClipboard();
+})
 
 $(document).on('click', '.deleteBtn', function () {
     var $row = $(this).parent('.row');

@@ -96,54 +96,88 @@ function openDoc() {
 
 function editSources() {
     //Deleting static text
-    var sourcing = document.getElementById('sources');
-    var sources = sourcing.getElementsByTagName('li');
-    var docEditing = document.getElementById('docEditing');
-    docEditing.removeChild(sourcing);
+    if (document.getElementById('sources').getElementsByTagName('li').length != 0) {
+        var sourcing = document.getElementById('sources');
+        var sources = sourcing.getElementsByTagName('li');
+        var docEditing = document.getElementById('docEditing');
+        docEditing.removeChild(sourcing);
 
-    //Converting sources into textarea
-    var textarea = document.createElement('TEXTAREA');
-    textarea.setAttribute('rows', 8);
-    textarea.setAttribute('cols', 250);
-    textarea.setAttribute('id', 'sourceText')
+        //Converting sources into textarea
+        var textarea = document.createElement('TEXTAREA');
+        textarea.setAttribute('rows', 8);
+        textarea.setAttribute('cols', 250);
+        textarea.setAttribute('id', 'sourceText')
 
-    var text = []
-    for (var i=0; i < sources.length; i++) {
-        var source = sources[i].innerHTML;
-        if (source.includes('<i>')) {
-            source = source.replace('<i>', '##');
-            source = source.replace('</i>', '%%');
+        var text = []
+        for (var i = 0; i < sources.length; i++) {
+            var source = sources[i].innerHTML;
+            if (source.includes('<i>')) {
+                source = source.replace('<i>', '##');
+                source = source.replace('</i>', '%%');
+            }
+            text.push(source);
         }
-        text.push(source);
+
+        text = text.join('\n');
+        text = document.createTextNode(text);
+        textarea.appendChild(text);
+
+        var center = document.createElement('CENTER');
+        center.appendChild(textarea);
+        docEditing.appendChild(center);
+
+        //Deleting edit button and adding save button
+        var buttons = document.getElementById('buttons');
+        docEditing.removeChild(buttons);
+
+        var newButton = document.createElement('BUTTON');
+        var h1 = document.createElement('H1');
+
+        newButton.setAttribute('id', 'save');
+
+        var saveText = document.createTextNode('Save');
+        h1.appendChild(saveText);
+        newButton.appendChild(h1);
+        docEditing.appendChild(newButton);
+
+        var p = document.createElement('P');
+        var note = document.createTextNode('*The text between the ## and %% symbols will be converted into italics.')
+        p.appendChild(note);
+        docEditing.appendChild(p);
+    } else {
+        var sourcing = document.getElementById('sources');
+        var docEditing = document.getElementById('docEditing');
+        docEditing.removeChild(sourcing);
+
+        //Converting sources into textarea
+        var textarea = document.createElement('TEXTAREA');
+        textarea.setAttribute('rows', 8);
+        textarea.setAttribute('cols', 250);
+        textarea.setAttribute('id', 'sourceText')
+
+        var center = document.createElement('CENTER');
+        center.appendChild(textarea);
+        docEditing.appendChild(center);
+
+        //Deleting edit button and adding save button
+        var buttons = document.getElementById('buttons');
+        docEditing.removeChild(buttons);
+
+        var newButton = document.createElement('BUTTON');
+        var h1 = document.createElement('H1');
+
+        newButton.setAttribute('id', 'save');
+
+        var saveText = document.createTextNode('Save');
+        h1.appendChild(saveText);
+        newButton.appendChild(h1);
+        docEditing.appendChild(newButton);
+
+        var p = document.createElement('P');
+        var note = document.createTextNode('*The text between the ## and %% symbols will be converted into italics.')
+        p.appendChild(note);
+        docEditing.appendChild(p);
     }
-
-    text = text.join('\n');
-    text = document.createTextNode(text);
-    textarea.appendChild(text);
-
-    var center = document.createElement('CENTER');
-    center.appendChild(textarea);
-    docEditing.appendChild(center);
-
-    //Deleting edit button and adding save button
-    var button = document.getElementById('editSources');
-    docEditing.removeChild(button);
-
-    var newButton = document.createElement('BUTTON');
-    var h1 = document.createElement('H1');
-
-    newButton.setAttribute('id', 'save');
-    newButton.setAttribute('onclick', 'saveSources()');
-
-    var saveText = document.createTextNode('Save');
-    h1.appendChild(saveText);
-    newButton.appendChild(h1);
-    docEditing.appendChild(newButton);
-
-    var p = document.createElement('P');
-    var note = document.createTextNode('*The text between the ## and %% symbols will be converted into italics.')
-    p.appendChild(note);
-    docEditing.appendChild(p);
 }
 
 //Converting back to static text
@@ -152,21 +186,21 @@ function saveSources() {
     var ul = document.createElement('UL');
     ul.setAttribute('id', 'sources');
 
-    for (var i=0; i < sourceArray.length; i++) {
+    for (var i = 0; i < sourceArray.length; i++) {
         if (sourceArray[i] != '') {
             if (sourceArray[i].includes('##') && sourceArray[i].includes('%%')) {
                 var firstSign = sourceArray[i].indexOf('#');
                 var lastSign = sourceArray[i].indexOf('%');
                 var part1 = document.createTextNode(sourceArray[i].substring(0, firstSign));
-                var italics = document.createTextNode(sourceArray[i].substring(firstSign+2, lastSign));
-                var part2 = document.createTextNode(sourceArray[i].substring(lastSign+2));
+                var italics = document.createTextNode(sourceArray[i].substring(firstSign + 2, lastSign));
+                var part2 = document.createTextNode(sourceArray[i].substring(lastSign + 2));
 
                 var li = document.createElement('LI');
-                var i = document.createElement('I');
+                var itag = document.createElement('I');
 
-                i.appendChild(italics);
+                itag.appendChild(italics);
                 li.appendChild(part1);
-                li.appendChild(i);
+                li.appendChild(itag);
                 li.appendChild(part2);
                 ul.appendChild(li);
             } else {
@@ -175,7 +209,6 @@ function saveSources() {
                 li.appendChild(source);
                 ul.appendChild(li);
             }
-            
         }
     }
 
@@ -190,19 +223,29 @@ function saveSources() {
     var p = docEditing.getElementsByTagName('p')[0];
     docEditing.removeChild(p);
 
-    //Adding in changed sources and edit button
-    var button = document.createElement('BUTTON');
-    var h1 = document.createElement('H1');
+    //Adding in changed sources and buttons
+    var div = document.createElement('DIV');
+    div.setAttribute('id', 'buttons')
 
+    var button1 = document.createElement('BUTTON');
+    var h1 = document.createElement('H1');
     var pencil = document.createTextNode('\u270E');
     h1.appendChild(pencil);
-    button.appendChild(h1);
+    button1.appendChild(h1);
 
-    button.setAttribute('id', 'editSources');
-    button.setAttribute('onclick', 'editSources()');
+    var button2 = document.createElement('BUTTON');
+    var h12 = document.createElement('H1');
+    var copy = document.createTextNode('Copy to Clipboard');
+    h12.appendChild(copy);
+    button2.appendChild(h12);
+
+    button1.setAttribute('id', 'editSources');
+    button2.setAttribute('id', 'copyClipboard');
 
     docEditing.appendChild(ul);
-    docEditing.appendChild(button);
+    div.appendChild(button1);
+    div.appendChild(button2);
+    docEditing.appendChild(div);
 }
 
 function returnSources() {
@@ -1432,6 +1475,30 @@ function backButton() {
     document.getElementById('home').style.display = 'block';
 }
 
+function copyClipboard() {
+    var elm = document.getElementById("sources");
+    // for Internet Explorer
+
+    if (document.body.createTextRange) {
+        var range = document.body.createTextRange();
+        range.moveToElementText(elm);
+        range.select();
+        document.execCommand("Copy");
+        alert("Copied to clipboard.");
+    }
+    else if (window.getSelection) {
+        // other browsers
+
+        var selection = window.getSelection();
+        var range = document.createRange();
+        range.selectNodeContents(elm);
+        selection.removeAllRanges();
+        selection.addRange(range);
+        document.execCommand("Copy");
+        alert("Copied to clipboard.");
+    }
+}
+
 window.onload = function() {
     $('#add-source').on('click', addSource);
     $('#add-author').on('click', addAuthor);
@@ -1463,6 +1530,7 @@ window.onload = function() {
     $('#backButton').on('click', backButton);
 
     $('#signOut').on('click', logOut);
+    $('#copyClipboard').on('click', copyClipboard);
 }
 
 $(document).on('click', '.deleteBtn', function() {

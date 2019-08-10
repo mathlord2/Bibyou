@@ -26,7 +26,6 @@ button {
 body {
     font-family: 'Rubik', sans-serif;
     font-weight: 400;
-    background-color: rgb(241, 234, 250);
 }
 
 p {
@@ -382,7 +381,7 @@ a, button {
         padding: 10px;
         border: 5px solid black;
         border-radius: 10px;
-        margin-bottom: 40px;
+        margin-right: 15px;
     }
 
     button:hover {
@@ -394,7 +393,7 @@ a, button {
 
     textarea {
         padding: 10px;
-        border: none;
+        border: 3px solid rgb(32, 0, 32);
         border-radius: 20px;
         margin-top: 40px;
     }
