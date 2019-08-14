@@ -125,7 +125,7 @@ a, button {
 }
 
 .document {
-  padding: 13px;
+  padding: 15px;
   line-height: 1.7;
   float: left;
   width: 47.5%;
@@ -136,6 +136,10 @@ a, button {
   text-align: center;
   color: black;
 }
+.document .deleteDoc {
+  float: right;
+  margin-right: 10px;
+}
 
 .document:nth-child(2n) {
   float: right;
@@ -145,6 +149,9 @@ a, button {
   background-color: #a75bff;
 }
 .document:hover h2, .document:hover p {
+  color: white;
+}
+.document:hover .deleteDoc:hover i {
   color: white;
 }
 
@@ -333,6 +340,7 @@ a, button {
   border: 5px solid black;
   border-radius: 10px;
   margin-right: 15px;
+  margin-bottom: 40px;
 }
 #docEditing button:hover {
   background-color: black;
@@ -342,7 +350,7 @@ a, button {
 }
 #docEditing textarea {
   padding: 10px;
-  border: 3px solid rgb(32, 0, 32);
+  border: 3px solid #200020;
   border-radius: 20px;
   margin-top: 40px;
 }

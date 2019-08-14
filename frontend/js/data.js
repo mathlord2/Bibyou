@@ -964,6 +964,7 @@ $(function() {
             data.forEach(function (doc, docNumber) {
                 $('#documents').append(
                     $('<a/>', {'class': 'document', 'id': 'doc'+docNumber.toString(), 'sources': doc['sources'].join(' ;+ '), 'docId': doc['docId']}).append(
+                        $('<h1/>', { 'class': 'deleteDoc' }).append($('<i/>', {'class': 'fa fa-trash'})),
                         $('<h2/>').text(doc['document']),
                         $('<p/>').text('Date Created: ' + doc['date'])
                     ));
@@ -1135,6 +1136,24 @@ $(function() {
                 }
             }
         }
+    });
+
+    $(document).on('click', '.deleteDoc', function(event) {
+        event.stopPropagation();
+        var docId = $(this).parent('a').attr('docId');
+        $(this).parent('a').fadeOut(1000, 'swing', function() {
+            $.ajax(backendHostUrl + '/deleteDoc', {
+                headers: {
+                    'Authorization': 'Bearer ' + userIdToken,
+                    'Access-Control-Allow-Origin': '*'
+                },
+                method: 'POST',
+                data: JSON.stringify({ 'docId': docId }),
+                contentType: 'application/json'
+            }).then(function () {
+                fetchSources();
+            });
+        });
     });
 
     configureFirebaseLogin();

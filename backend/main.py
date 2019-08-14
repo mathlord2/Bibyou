@@ -110,6 +110,27 @@ def add_source():
     
     return 'OK', 200
 
+@app.route('/deleteDoc', methods=['POST', 'PUT'])
+def delete_doc():
+    id_token = request.headers['Authorization'].split(' ').pop()
+    claims = google.oauth2.id_token.verify_firebase_token(id_token, HTTP_REQUEST)
+    if not claims:
+        return 'Unauthorized', 401
+    
+    data = request.get_json()
+    id = data['docId']
+    idContents = id[4:-1]
+    args = idContents.split(', ')
+
+    args[3] = int(args[3])
+
+    for i in range(len(args)-1):
+        args[i] = args[i].strip("'")
+    
+    ndb.Key(*args).delete()
+
+    return 'OK', 200
+
 @app.errorhandler(500)
 def server_error(e):
     # Log the error and stacktrace.
