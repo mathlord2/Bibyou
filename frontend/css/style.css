@@ -171,7 +171,6 @@ a, button {
 .overlay #addDocument {
   position: absolute;
   width: 70%;
-  height: 30%;
   margin-left: 15%;
   margin-top: 10%;
   background-color: #e3caff;
@@ -209,7 +208,6 @@ a, button {
 .overlay #editSourceSettings {
   position: absolute;
   width: 70%;
-  height: 30%;
   margin-left: 15%;
   margin-top: 10%;
   background-color: #e3caff;
