@@ -3,6 +3,9 @@ api_version: 1
 threadsafe: true
 service: backend
 
+automatic_scaling:
+  max_instances: 1
+
 builtins:
 - remote_api: on
 
