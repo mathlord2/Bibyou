@@ -16,4 +16,4 @@ Right beside the pencil icon, there is a **Copy to Clipboard** button that allow
 ## Browser Support
 ![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Brave](https://raw.github.com/alrra/browser-logos/master/src/brave/brave_48x48.png)
 --- | --- | --- | --- |
-Latest ✔ | Latest ✔ | 10+ ✔ | No |
+Latest ✔ | Latest ✔ | Latest ✔ | No ❌ |
