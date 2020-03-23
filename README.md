@@ -14,6 +14,6 @@ Click the pencil icon below the bibliography. This will convert your bibliograph
 Right beside the pencil icon, there is a **Copy to Clipboard** button that allows you to copy the sources to your clipboard and paste it onto another document. In the navbar, when a bibliography is open, there is a **Back** button that allows you to go to the main menu and a **Learn How to Cite** button that leads to a website where you can learn to cite sources yourself in a specific format. At the right side of the navbar is a **Sign Out** button that allows you to sign out of your account.
 
 ## Browser Support
-![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/src/internet-explorer/internet-explorer_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png)
+![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/src/microsoft-edge/microsoft-edge_48x48.png) | ![Brave](https://raw.github.com/alrra/browser-logos/master/src/brave/brave_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png)
 --- | --- | --- | --- | --- |
-Latest ✔ | Latest ✔ | 10+ ✔ | Latest ✔ | 6.1+ ✔ |
+Latest ✔ | Latest ✔ | 10+ ✔ | No | 6.1+ ✔ |
